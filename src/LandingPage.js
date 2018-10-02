@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import ChartComponent from './ChartComponent'
 
 export default class LandingPage extends Component {
     constructor (props) {
@@ -44,7 +45,7 @@ export default class LandingPage extends Component {
                 <Container>
                     <Row>
                         <Col className="plottingArea" xs="12">
-                            Plotting area
+                            <ChartComponent limitAuto={this.state.limitAuto} limitHaz={this.state.limitHaz} />
                         </Col>
                     </Row>
                     <Row>
