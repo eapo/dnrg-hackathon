@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container, Row, Col  } from 'reactstrap';
 import LandingPage from './LandingPage';
-
-
 import './App.css';
 
 class App extends Component {
@@ -19,7 +17,7 @@ class App extends Component {
               <h1>D-NRG Okosáram</h1>
               </Col>
               <Col>
-                <img src="/flux.png" style={{maxHeight : '100px'}} />
+                <img src="./flux.png" style={{maxHeight : '100px'}} />
               </Col>
             </Row>
           </Container>

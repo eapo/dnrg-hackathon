@@ -74,7 +74,7 @@ export default class LandingPage extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="rangeArea" xs="12" sm="6">                        
+                        <Col className="rangeArea" xs={{size: 12, order: 1}} sm={{size: 6, order: 1}}>                        
                             <Row>
                                 <Col xs="12">
                                     <h1>Limit</h1>
@@ -131,7 +131,7 @@ export default class LandingPage extends Component {
                                 </datalist>
                             </Row> 
                         </Col>
-                        <Col className="savingArea" xs="12" sm="6">
+                        <Col className="savingArea" xs={{size: 12, order: 3}} sm={{size: 6, order: 2}}>
                             <Row>
                                 <Col xs="12">
                                     <h1>Megtakarítás</h1>
@@ -150,13 +150,12 @@ export default class LandingPage extends Component {
                                 </Col>
                             </Row>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col className="discountArea" xs="12" sm="6">
+                
+                        <Col className="discountArea" xs={{size: 12, order: 2}} sm={{size: 6, order: 3}}>
                             <h1>Automatikus árazás</h1>
-                            <h3 className="text-left">Az NKM által ajánlott kedvezményes ár:</h3>
-                            <h3 className="text-left">{this.state.olcsoAr} Ft / kWh.</h3> 
-                            <p className="text-left">Érvényes: {this.state.maiDatum}-től ma éjfélig.</p>
+                            <h3 >Az NKM által ajánlott kedvezményes ár:</h3>
+                            <h3 >{this.state.olcsoAr} Ft / kWh.</h3> 
+                            <p >Érvényes: {this.state.maiDatum}-től ma éjfélig.</p>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
@@ -171,7 +170,7 @@ export default class LandingPage extends Component {
                                 <Input placeholder="Az automatikus árazást választom." />
                             </InputGroup>
                         </Col>
-                        <Col className="messageArea" xs="12" sm="6">
+                        <Col className="messageArea" xs={{size: 12, order: 4}} sm={{size: 6, order: 4}}>
                             <h1>Üzenetek</h1>
                             {this.state.uzenetek.map((u, i) => {
                                 return <p className="messageP" key={i}>{u}</p>
