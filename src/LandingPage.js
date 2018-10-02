@@ -23,10 +23,10 @@ export default class LandingPage extends Component {
     }
 
     handleCarChange = (event) => {
-        this.setState({limitAuto: event.target.value});
+        this.setState({limitAuto: Number(event.target.value)});
     }
     handleHazChange = (event) => {
-        this.setState({limitHaz: event.target.value});
+        this.setState({limitHaz: Number(event.target.value)});
     }
 
 
