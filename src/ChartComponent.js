@@ -26,31 +26,44 @@ const series = new TimeSeries(data);
 
 const style = {
     value: {
-        stroke: "#a02c2c",
-        opacity: 0.2
-    }
-};
-
-const baselineStyleLite = {
-    line: {
-        stroke: "crimson",
+        stroke: "#2098ff",
+        opacity: 0.2,
         strokeWidth: 2,
-        opacity: 0.5
-    },
-    label: {
-        fill: "crimson"
     }
 };
 
-const baselineStyleExtraLite = {
+const baselineStyleAuto = {
     line: {
-        stroke: "darkgreen",
+        stroke: "#350b72",
         strokeWidth: 2,
         opacity: 0.5,
         strokeDasharray: "1,1"
     },
     label: {
-        fill: "darkgreen"
+        fill: "#350b72"
+    }
+};
+
+const baselineStyleHaz = {
+    line: {
+        stroke: "#ff7c2b",
+        strokeWidth: 2,
+        opacity: 0.5,
+        strokeDasharray: "1,1"
+    },
+    label: {
+        fill: "#ff7c2b"
+    }
+};
+
+const baselineStyleNvm = {
+    line: {
+        stroke: "#ff7c2b",
+        strokeWidth: 3,
+        opacity: 0.5,
+    },
+    label: {
+        fill: "#red"
     }
 };
 
@@ -64,7 +77,7 @@ export default class ChartComponent extends React.Component {
     }
     
     render() {
-        const { limitAuto, limitHaz } = this.props;
+        const { limitAuto, limitHaz, olcsoAr } = this.props;
         return (
             <Resizable>
                 <ChartContainer 
@@ -79,13 +92,19 @@ export default class ChartComponent extends React.Component {
                                 value={limitAuto}
                                 label="E-autó"
                                 position="right"
-                                style={baselineStyleLite} />
+                                style={baselineStyleAuto} />
                             <Baseline 
                                 axis="axis1"
                                 value={limitHaz}
                                 label="Háztartás"
+                                position="right"
+                                style={baselineStyleHaz} />
+                            <Baseline 
+                                axis="axis1"
+                                value={olcsoAr}
+                                label="NKM automatikus ár"
                                 position="left"
-                                style={baselineStyleExtraLite} />
+                                style={baselineStyleNvm} />
                         </Charts>
                     </ChartRow>
                 </ChartContainer>

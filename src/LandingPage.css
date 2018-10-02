@@ -1,0 +1,54 @@
+.container {
+    background: linear-gradient(to top, #ff7c2b, #ffbe15);
+}
+.rangeArea {
+    background: linear-gradient(to top, #7920FF, #2098ff);
+    color: #fff;
+}
+.savingArea {
+    background: linear-gradient(to top, #ff7c2b, #ffbe15);
+    color: #fff;   
+}
+
+.discountArea {
+    background: linear-gradient(to bottom, #7920FF, #2098ff);
+    color: #fff;
+}
+
+.messageArea {
+    background: linear-gradient(to bottom, #ff7c2b, #ffbe15);
+    color: #fff;
+}
+
+h1 {
+    text-transform: uppercase;
+    padding: 2rem 0 1rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+h2 {
+    font-size: 1.4rem;
+    padding: 1rem 0 0;
+}
+h3 {
+    font-size: 1.4rem;
+    padding: 0 1rem 1rem .2rem;
+}
+.bottomBorder {
+    border-bottom: 2px solid white;
+}
+
+.messageP {
+    background: white;
+    color: #3c3940;
+    border-radius: 15px;
+    text-align: left;
+    padding: .5rem 1rem;
+}
+
+.input-group {
+    padding-bottom: 1rem;
+}
+.limitSpan {
+    margin-bottom: 1rem;
+}

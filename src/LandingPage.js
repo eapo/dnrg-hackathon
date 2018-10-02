@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import ChartComponent from './ChartComponent'
+import { Container, Row, Col, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import ChartComponent from './ChartComponent';
+import moment from 'moment';
+import './LandingPage.css';
 
 export default class LandingPage extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            limitAuto : 36,
-            limitHaz : 36,
+            limitAuto : 32,
+            limitHaz : 40,
             megtakNapi : 442,
             megtakHavi: 11200,
-            olcsoAr: 30,
+            olcsoAr: 34,
             uzenetek: [
-                "FIGYELEM! A kedvezményes időszak ma 22:15-kor kezdődik.",
-                "TIPP - Automatikus e-autótöltés az NKM SmartChargerrel",
-
-            ]
+                "FIGYELEM! Extra olcsó áram! Ma 22:15-től holnap 06:00-ig 30 Ft/kWh alatt adjuk az áramot.",
+                "TIPP - Tegye automatikussá eleketromos autója töltését az NKM SmartChargerrel!",
+                "TIPP - Spóroljon az áramszámlán, indítsa éjszaka a mosást!"
+            ],
+            automata: false,
         }     
     }
     componentDidMount() {
@@ -23,118 +26,154 @@ export default class LandingPage extends Component {
     }
 
     handleCarChange = (event) => {
-        this.setState({limitAuto: Number(event.target.value)});
+        this.setState({
+            limitAuto: Number(event.target.value),
+            automata: false,
+        });
     }
     handleHazChange = (event) => {
-        this.setState({limitHaz: Number(event.target.value)});
+        this.setState({
+            limitHaz: Number(event.target.value),
+            automata: false,
+        });
     }
 
+    handleAutomata = (event) => {
+        console.log(event.target.checked);
+        this.setState({
+            automata: event.target.checked,
+        }, () => {
+            if(this.state.automata) {
+                this.setState({
+                    limitAuto: this.state.olcsoAr,
+                    limitHaz: this.state.olcsoAr,
+                })
+            }
+        });
+        
+    }
 
     setDate = () => {
         const d = new Date();
+        const newD = moment().format('YYYY. MMMM D.');
         let result = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
         this.setState({
-            maiDatum: result
+            maiDatum: newD
         });
-
     }
 
     render () {
         return (
             <div className="LandingPage">
-                <Container>
+                <Container fluid={true}>
                     <Row>
                         <Col className="plottingArea" xs="12">
-                            <ChartComponent limitAuto={this.state.limitAuto} limitHaz={this.state.limitHaz} />
+                            <ChartComponent 
+                                limitAuto={this.state.limitAuto} 
+                                limitHaz={this.state.limitHaz}
+                                olcsoAr={this.state.olcsoAr} />
                         </Col>
                     </Row>
                     <Row>
                         <Col className="rangeArea" xs="12" sm="6">                        
-                            <Col xs="12">
-                                <h1>Limit</h1>
-                            </Col>
-                            <Col xs="12">
-                                <h3>E-autótöltés</h3>
-                            </Col>
-                            <Col xs="12">
-                                <input 
-                                    id="carRange" type="range" name="carRange" 
-                                    min="28" step="1" max="45" 
-                                    value={this.state.limitAuto} data-sizing="Ft / kWh" 
-                                    list="ticks"
-                                    onChange={this.handleCarChange}
-                                />
-                                <span>{this.state.limitAuto} Ft/kWh</span>
-                            </Col>
-                            <Col xs="12">
-                                <h3>Háztartási eszközök</h3>
-                            </Col>
-                            <Col xs="12">
-                                <input 
-                                    id="hazRange" 
-                                    type="range" 
-                                    name="hazRange" 
-                                    min="28" 
-                                    max="45" 
-                                    step="1" 
-                                    value={this.state.limitHaz} 
-                                    data-sizing="Ft / kWh" 
-                                    list="ticks"
-                                    onChange={this.handleHazChange}
-                                />
-                                <span>{this.state.limitHaz} Ft/kWh</span>
-                            </Col>
-                            <datalist id="ticks">
-                                <option value="28" label="28 Ft"></option>
-                                <option value="29"></option>
-                                <option value="30"></option>
-                                <option value="31"></option>
-                                <option value="32"></option>
-                                <option value="33"></option>
-                                <option value="34"></option>
-                                <option value="35"></option>
-                                <option value="36" label="35 Ft"></option>
-                                <option value="37"></option>
-                                <option value="38"></option>
-                                <option value="39"></option>
-                                <option value="40"></option>
-                                <option value="41"></option>
-                                <option value="42"></option>
-                                <option value="43"></option>
-                                <option value="44"></option>
-                                <option value="45" label="45 Ft"></option>
-                            </datalist> 
+                            <Row>
+                                <Col xs="12">
+                                    <h1>Limit</h1>
+                                </Col>
+            
+                                <Col xs="6">
+                                    <h3>E-autótöltés</h3>
+                                    <input 
+                                        id="carRange" type="range" name="carRange" 
+                                        min="28" step="1" max="45" 
+                                        value={this.state.limitAuto} data-sizing="Ft / kWh" 
+                                        list="ticks"
+                                        onChange={this.handleCarChange}
+                                    />
+                                    <br/>
+                                    <p className="limitSpan">{this.state.limitAuto} Ft/kWh</p>
+                                </Col>
+                                <Col xs="6">
+                                    <h3>Háztartási eszközök</h3>
+                                    <input 
+                                        id="hazRange" 
+                                        type="range" 
+                                        name="hazRange" 
+                                        min="28" 
+                                        max="45" 
+                                        step="1" 
+                                        value={this.state.limitHaz} 
+                                        data-sizing="Ft / kWh" 
+                                        list="ticks"
+                                        onChange={this.handleHazChange}
+                                    />
+                                    <br/>
+                                    <p className="limitSpan">{this.state.limitHaz} Ft/kWh</p>
+                                </Col>
+                                <datalist id="ticks">
+                                    <option value="28" label="28 Ft"></option>
+                                    <option value="29"></option>
+                                    <option value="30"></option>
+                                    <option value="31"></option>
+                                    <option value="32"></option>
+                                    <option value="33"></option>
+                                    <option value="34"></option>
+                                    <option value="35"></option>
+                                    <option value="36" label="35 Ft"></option>
+                                    <option value="37"></option>
+                                    <option value="38"></option>
+                                    <option value="39"></option>
+                                    <option value="40"></option>
+                                    <option value="41"></option>
+                                    <option value="42"></option>
+                                    <option value="43"></option>
+                                    <option value="44"></option>
+                                    <option value="45" label="45 Ft"></option>
+                                </datalist>
+                            </Row> 
                         </Col>
-                        <Col className="priceArea" xs="12" sm="6">
+                        <Col className="savingArea" xs="12" sm="6">
                             <Row>
                                 <Col xs="12">
                                     <h1>Megtakarítás</h1>
                                 </Col>
-                                <Col xs="6">
-                                    <h2>24 <span>óra</span></h2>
+                                <Col className="bottomBorder text-left" xs={{size: 5, offset: 1}} >
+                                    <h2>Elmúlt 24 <span>óra</span></h2>
                                 </Col>
-                                <Col xs="6">
-                                    <h2>30 <span>nap</span></h2>
+                                <Col className="bottomBorder text-right" xs={{size: 5}}>
+                                    <h2>{this.state.megtakNapi} Ft</h2>
                                 </Col>
-                                <Col xs="6">
-                                    <h3>{this.state.megtakNapi} Ft</h3>
+                                <Col className="bottomBorder text-left" xs={{size: 5,  offset: 1}}>
+                                    <h2>Elmúlt 30 <span>nap</span></h2>
                                 </Col>
-                                <Col xs="6">
-                                    <h3>{this.state.megtakHavi} Ft</h3>
+                                <Col className="bottomBorder text-right" xs={{size: 5}}>
+                                    <h2>{this.state.megtakHavi} Ft</h2>
                                 </Col>
                             </Row>
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="6">
-                            <h1>Kedvezményes ár</h1>
-                            <h2>{this.state.olcsoAr} Ft / kWh</h2>
-                            <p>{this.state.maiDatum}</p>
+                        <Col className="discountArea" xs="12" sm="6">
+                            <h1>Automatikus árazás</h1>
+                            <h3 className="text-left">Az NKM által ajánlott kedvezményes ár: {this.state.olcsoAr} Ft / kWh. Érvényes: {this.state.maiDatum} éjfélig.</h3>
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <Input addon 
+                                        type="checkbox" 
+                                        onChange={this.handleAutomata} 
+                                        checked={this.state.automata} 
+                                        name="automata"
+                                        aria-label="Automatikus árazás választó gomb." />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input placeholder="Az automatikus árazást választom." />
+                            </InputGroup>
                         </Col>
-                        <Col xs="6">
+                        <Col className="messageArea" xs="12" sm="6">
                             <h1>Üzenetek</h1>
                             {this.state.uzenetek.map((u, i) => {
-                                return <p key={i}>{u}</p>
+                                return <p className="messageP" key={i}>{u}</p>
                             })}
                         </Col>
                     </Row>
