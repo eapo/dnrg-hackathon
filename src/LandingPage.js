@@ -14,7 +14,7 @@ export default class LandingPage extends Component {
             megtakHavi: 11200,
             olcsoAr: 34,
             uzenetek: [
-                "FIGYELEM! Extra olcsó áram! Ma 22:15-től holnap 06:00-ig 30 Ft/kWh alatt adjuk az áramot.",
+                "FIGYELEM! Extra olcsó áram! Ma 22:15-től holnap 06:00-ig az NKM 30 Ft/kWh alatt adja az áramot.",
                 "TIPP - Tegye automatikussá eleketromos autója töltését az NKM SmartChargerrel!",
                 "TIPP - Spóroljon az áramszámlán, indítsa éjszaka a mosást!"
             ],
@@ -55,8 +55,7 @@ export default class LandingPage extends Component {
 
     setDate = () => {
         const d = new Date();
-        const newD = moment().format('YYYY. MMMM D.');
-        let result = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+        const newD = moment().format('YYYY. MM DD. HH:MM');
         this.setState({
             maiDatum: newD
         });
@@ -155,7 +154,9 @@ export default class LandingPage extends Component {
                     <Row>
                         <Col className="discountArea" xs="12" sm="6">
                             <h1>Automatikus árazás</h1>
-                            <h3 className="text-left">Az NKM által ajánlott kedvezményes ár: {this.state.olcsoAr} Ft / kWh. Érvényes: {this.state.maiDatum} éjfélig.</h3>
+                            <h3 className="text-left">Az NKM által ajánlott kedvezményes ár:</h3>
+                            <h3 className="text-left">{this.state.olcsoAr} Ft / kWh.</h3> 
+                            <p className="text-left">Érvényes: {this.state.maiDatum}-től ma éjfélig.</p>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText>

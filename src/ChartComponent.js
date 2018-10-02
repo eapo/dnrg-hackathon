@@ -9,6 +9,7 @@ import {
     Resizable
 } from "react-timeseries-charts";
 import { TimeSeries, Index } from 'pondjs';
+import moment from 'moment';
 
 // fake price data for two days
 const importedJSON = require('./fakepricedata.json');
@@ -78,12 +79,13 @@ export default class ChartComponent extends React.Component {
     
     render() {
         const { limitAuto, limitHaz, olcsoAr } = this.props;
+        const chartTitle = `Áramár - ${moment().subtract('day', 1).format('YYYY-MM-DD')} - ${moment().format('YYYY-MM-DD')}`
         return (
             <Resizable>
                 <ChartContainer 
-                title="Villamosenergia ára az elmúlt 24 órában"    
+                title={chartTitle}    
                 timeRange={series.range()}>
-                    <ChartRow height="400">
+                    <ChartRow height="200">
                         <YAxis id="axis1" label="Ft / kWh" min={28} max={45} width="60"  />
                         <Charts>
                             <LineChart axis="axis1" series={series} columns={["value"]} style={style}/>
@@ -102,7 +104,7 @@ export default class ChartComponent extends React.Component {
                             <Baseline 
                                 axis="axis1"
                                 value={olcsoAr}
-                                label="NKM automatikus ár"
+                                label="NKM kedvezményes ár"
                                 position="left"
                                 style={baselineStyleNvm} />
                         </Charts>

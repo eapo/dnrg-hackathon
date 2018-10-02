@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
-import Navigation from './Navigation';
 import LandingPage from './LandingPage';
 
 
@@ -16,10 +14,9 @@ class App extends Component {
           <header className="App-header">
             <h1>D-NRG Okosáram</h1>
           </header>
-          <Switch>
-            <Route exact name="index" path="/" component={LandingPage} />
-            {/* <Route exact name="components" path="/components" component={ComponentsPage} /> */}
-          </Switch>
+          
+            <Route exact name="index" path={process.env.PUBLIC_URL + '/'} component={LandingPage} />
+          
           <footer>
             <p className="App-intro">
               D-NRG, 2018
